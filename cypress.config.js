@@ -2,7 +2,7 @@ const { defineConfig } = require('cypress');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const pixelmatch = require('pixelmatch').default;
+const blazediff = require('@blazediff/core').default;
 const PNG = require('pngjs').PNG;
 
 function assertSafeToken(name, value) {
@@ -143,7 +143,7 @@ module.exports = defineConfig({
           const diff = new PNG({ width, height });
           const appliedThreshold = debug ? 0 : threshold;
 
-          const numDiffPixels = pixelmatch(
+          const numDiffPixels = blazediff(
             png1.data,
             png2.data,
             diff.data,
